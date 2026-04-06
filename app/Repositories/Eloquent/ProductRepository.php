@@ -3,6 +3,7 @@ namespace App\Repositories\Eloquent;
 
 use App\Models\Product;
 use App\Repositories\Contracts\ProductRepositoryInterface;
+use Illuminate\Support\Facades\Log;
 
 class ProductRepository implements ProductRepositoryInterface {
     public function list(array $params) {
@@ -25,7 +26,11 @@ class ProductRepository implements ProductRepositoryInterface {
     }
 
     public function find(int $id) {
-        return Product::with('usuario')->findOrFail($id);
+        Log::info('Message');
+        $query = Product::query()->with('usuario');
+        //$query->where('usuario_id', $usuarioId);
+
+        return $query->findOrFail($id);
     }
 
     public function update(int $id, array $data) {

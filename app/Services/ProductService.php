@@ -26,5 +26,7 @@ class ProductService {
         return $this->productRepository->find($id);
     }
 
-    public function delete(int $id) { return $this->productRepository->delete($id); }
+    public function delete(int $id) {
+        return $this->productRepository->delete($id);
+    }
 }
