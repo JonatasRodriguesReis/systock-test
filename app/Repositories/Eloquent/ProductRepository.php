@@ -7,7 +7,24 @@ use Illuminate\Support\Facades\Log;
 
 class ProductRepository implements ProductRepositoryInterface {
     public function list(array $params) {
-        $query = Product::query()->with('usuario'); // Eager loading do dono do product
+        $query = Product::query()->with('usuario');
+
+        if (!empty($params['search'])) {
+            $search = $params['search'];
+            $query->where(function($q) use ($search) {
+                $q->where('nome', 'ilike', "%{$search}%")
+                  ->orWhere('descricao', 'ilike', "%{$search}%");
+            });
+        }
+
+        return $query->orderBy($params['sort_by'] ?? 'created_at', $params['sort_order'] ?? 'desc')
+                     ->paginate($params['per_page'] ?? 10);
+    }
+
+    public function listMyProducts(array $params, int $userId) {
+        $query = Product::query()->with('usuario');
+
+        $query->where('usuario_id', $userId);
 
         if (!empty($params['search'])) {
             $search = $params['search'];

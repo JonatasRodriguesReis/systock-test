@@ -27,6 +27,19 @@ class ProductController extends Controller {
         }
     }
 
+    public function myProducts(Request $request)
+    {
+        try{
+            $filters = $request->only(['search', 'sort_by', 'sort_order','per_page']);
+            $userId = $request->user()->id;
+            $products = $this->productService->listMyProducts($filters, $userId);
+            return ProductResource::collection($products);
+        } catch (\Exception $e) {
+            Log::error('Error fetching products: ' . $e->getMessage());
+            return response()->json(['error' => 'Failed to fetch products: ' . $e->getMessage()], 500);
+        }
+    }
+
     public function store(StoreProductRequest $request): JsonResponse
     {
         try{
@@ -92,4 +105,6 @@ class ProductController extends Controller {
             return response()->json(['error' => 'Erro interno ao tentar excluir o produto.'], 500);
         }
     }
+
+
 }

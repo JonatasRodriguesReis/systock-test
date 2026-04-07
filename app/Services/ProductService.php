@@ -18,6 +18,10 @@ class ProductService {
         return $this->productRepository->list($params);
     }
 
+    public function listMyProducts(array $params, int $userId) {
+        return $this->productRepository->listMyProducts($params, $userId);
+    }
+
     public function update(int $id, array $data) {
         return $this->productRepository->update($id, $data);
     }
