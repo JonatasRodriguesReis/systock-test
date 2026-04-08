@@ -24,6 +24,12 @@ class AppServiceProvider extends ServiceProvider
             \App\Repositories\Eloquent\ProductRepository::class,
             \App\Services\ProductService::class
         );
+
+        $this->app->bind(
+            \App\Repositories\Contracts\ReportRepositoryInterface::class,
+            \App\Repositories\Eloquent\ReportRepository::class,
+            \App\Services\ReportService::class
+        );
     }
 
     /**
