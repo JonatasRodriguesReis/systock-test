@@ -38,8 +38,9 @@ class ProductRepository implements ProductRepositoryInterface {
                      ->paginate($params['per_page'] ?? 10);
     }
 
-    public function create(array $data) {
-        return Product::create($data);
+    public function create(array $data, int $userId) {
+        $createData = array_merge($data, ['usuario_id' => $userId]);
+        return Product::create($createData);
     }
 
     public function find(int $id) {

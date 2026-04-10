@@ -10,8 +10,8 @@ class ProductService {
         protected ProductRepositoryInterface $productRepository
     ) {}
 
-    public function create(array $data) {
-        return $this->productRepository->create($data);
+    public function create(array $data, int $userId) {
+        return $this->productRepository->create($data, $userId);
     }
 
     public function listAll(array $params) {

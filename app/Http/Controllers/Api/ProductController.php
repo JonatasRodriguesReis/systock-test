@@ -43,7 +43,8 @@ class ProductController extends Controller {
     public function store(StoreProductRequest $request): JsonResponse
     {
         try{
-            $product = $this->productService->create($request->validated());
+            $userId = $request->user()->id;
+            $product = $this->productService->create($request->validated(), $userId);
             return response()->json($product, 201);
         } catch (\Exception $e) {
             Log::error('Error creating product: ' . $e->getMessage());
@@ -66,7 +67,7 @@ class ProductController extends Controller {
         }
     }
 
-    public function update(Request $request, int $id): JsonResponse
+    public function update(StoreProductRequest $request, int $id): JsonResponse
     {
         try {
             $product = $this->productService->findById($id);

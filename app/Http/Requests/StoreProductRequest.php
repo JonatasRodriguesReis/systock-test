@@ -25,8 +25,7 @@ class StoreProductRequest extends FormRequest
         return [
             'nome'     => 'required|string|min:3|max:255',
             'descricao'     => 'required|string|min:3|max:255',
-            'preco' => 'required|numeric|min:0',
-            'usuario_id' => 'required|exists:usuarios,id',
+            'preco' => 'required|numeric|min:0'
         ];
     }
 }

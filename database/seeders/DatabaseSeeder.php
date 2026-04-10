@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
                     'usuario_id' => $user->id,
                                         'nome'       => 'Produto ' . Str::random(5),
                     'preco'      => rand(100, 10000) / 100,
+                    'descricao' => 'Descrição do produto ' . Str::random(10),
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];
