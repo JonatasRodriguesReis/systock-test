@@ -1,11 +1,11 @@
 /*
 Query A: Listar os usuários com mais produtos (TOP 10)
 */
-SELECT u.name, count(p.id) as qtd
-FROM users u
-JOIN products p ON p.usuario_id = u.id
-GROUP BY u.id, u.name
-ORDER BY qtd DESC
+SELECT u.nome AS nome, count(p.id) AS total_produtos
+FROM usuarios u
+JOIN produtos p ON p.usuario_id = u.id
+GROUP BY u.id, u.nome
+ORDER BY total_produtos DESC
 LIMIT 10;
 
 /*
@@ -15,7 +15,7 @@ SELECT DISTINCT ON (usuario_id)
     usuario_id,
     nome as produto_mais_caro,
     preco
-FROM products
+FROM produtos
 ORDER BY usuario_id, preco DESC;
 
 /*
@@ -28,8 +28,8 @@ SELECT
         ELSE 'Premium (>500)'
     END as faixa_preco,
     COUNT(*) as total
-FROM products
+FROM produtos
 GROUP BY faixa_preco
-ORDER BY total DESC;
+ORDER BY faixa_preco DESC;
 
 

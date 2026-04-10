@@ -11,7 +11,15 @@ class ReportService {
     ) {}
 
     //limit and offset
-    public function execute( int $limit, int $offset) {
+    public function executeSQLReport( int $limit, int $offset) {
         return $this->reportRepository->generateReport($limit, $offset);
+    }
+
+    public function executeRankingReport() {
+        return $this->reportRepository->generateRankingReport();
+    }
+
+    public function executePriceRangeReport() {
+        return $this->reportRepository->generatePriceRangeReport();
     }
 }

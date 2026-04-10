@@ -28,7 +28,13 @@ class DatabaseSeeder extends Seeder
                 $products[] = [
                     'usuario_id' => $user->id,
                                         'nome'       => 'Produto ' . Str::random(5),
-                    'preco'      => rand(100, 10000) / 100,
+
+                    // generate ranges of 0-100, 100-500 or greater than 500
+                    'preco'      => match (rand(1, 3)) {
+                        1 => rand(0, 100),
+                        2 => rand(100, 500),
+                        3 => rand(500, 1000),
+                    },
                     'descricao' => 'Descrição do produto ' . Str::random(10),
                     'created_at' => now(),
                     'updated_at' => now(),

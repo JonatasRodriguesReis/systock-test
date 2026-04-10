@@ -22,7 +22,39 @@ class ReportController extends Controller
             $limit = $request->query('per_page', 10);
             $offset = ($request->query('page', 1) - 1) * $limit;
 
-            $results = $this->reportService->execute($limit, $offset);
+            $results = $this->reportService->executeSQLReport($limit, $offset);
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $results
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Report Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Erro ao gerar relatório.'], 500);
+        }
+    }
+
+    public function rankingReport()
+    {
+        try {
+            $results = $this->reportService->executeRankingReport();
+
+            return response()->json([
+                'status' => 'success',
+                'data' => $results
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Report Error: ' . $e->getMessage());
+            return response()->json(['error' => 'Erro ao gerar relatório.'], 500);
+        }
+    }
+
+    public function priceRangeReport()
+    {
+        try {
+            $results = $this->reportService->executePriceRangeReport();
 
             return response()->json([
                 'status' => 'success',

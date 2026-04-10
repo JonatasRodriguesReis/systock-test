@@ -51,4 +51,40 @@ class ReportRepository implements ReportRepositoryInterface {
 
         return $results;
     }
+
+    public function generateRankingReport()
+    {
+        $query = "
+            SELECT u.nome AS nome, count(p.id) AS total_produtos
+            FROM usuarios u
+            JOIN produtos p ON p.usuario_id = u.id
+            GROUP BY u.id, u.nome
+            ORDER BY total_produtos DESC
+            LIMIT 10;
+        ";
+
+        $results = DB::select($query);
+
+        return $results;
+    }
+
+    public function generatePriceRangeReport()
+    {
+        $query = "
+            SELECT
+                CASE
+                    WHEN preco < 100 THEN 'Econômico (0-100)'
+                    WHEN preco BETWEEN 100 AND 500 THEN 'Médio (100-500)'
+                    ELSE 'Premium (>500)'
+                END as faixa_preco,
+                COUNT(*) as total
+            FROM produtos
+            GROUP BY faixa_preco
+            ORDER BY faixa_preco DESC;
+        ";
+
+        $results = DB::select($query);
+
+        return $results;
+    }
 }

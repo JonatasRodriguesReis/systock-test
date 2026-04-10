@@ -19,4 +19,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('produtos', ProductController::class);
 
     Route::get('/relatorio-sql', [ ReportController::class, 'sqlReport' ] );
+    Route::get('/relatorio-ranking', [ ReportController::class, 'rankingReport' ] );
+    Route::get('/relatorio-price-range', [ ReportController::class, 'priceRangeReport' ] );
 });
